@@ -1,0 +1,216 @@
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Caveat:wght@600&display=swap');
+
+/* ─── Design Tokens ─── */
+:root {
+  --bg: #ffffff;
+  --bg-elevated: #fafafa;
+  --bg-card: #ffffff;
+
+  /* Subtle Hairline Borders */
+  --col-border: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Text Colors */
+  --text-heading: #09090b;
+  --text: #52525b;
+  --text-muted: #71717a;
+
+  /* Accent */
+  --accent: #18181b;
+  --accent-orange: #f97316;
+
+  /* Fonts */
+  --font-geist: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Geist", "Mona Sans", system-ui, sans-serif;
+  --font-body: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Fira Code", monospace;
+  --font-handwriting: "Caveat", cursive;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --transition: 0.18s ease;
+}
+
+/* ─── Reset ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+/* ─── Tactile Button System (As Attached Reference) ─── */
+.tactile-btn-primary {
+  font-family: var(--font-geist);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 12px;
+  background: #18181b;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 8px 18px -4px rgba(0, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.tactile-btn-primary:hover {
+  background: #27272a;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 12px 24px -4px rgba(0, 0, 0, 0.4);
+}
+
+.tactile-btn-primary:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tactile-btn-secondary {
+  font-family: var(--font-geist);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #18181b;
+  border: 1px solid #e4e4e7;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.tactile-btn-secondary:hover {
+  background: #f4f4f5;
+  border-color: #d4d4d8;
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.tactile-btn-secondary:active {
+  transform: translateY(1px);
+}
+
+/* ─── Tactile Button Variants & Modifiers ───
+   Usage: combine base + optional modifier(s)
+   e.g. className="tactile-btn-primary tactile-btn-sm"
+        className="tactile-btn-danger tactile-btn-sm tactile-btn-block"
+─── */
+
+.tactile-btn-sm {
+  font-size: 0.82rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  gap: 6px;
+}
+
+.tactile-btn-block {
+  width: 100%;
+}
+
+.tactile-btn-danger {
+  font-family: var(--font-geist);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 2px rgba(239, 68, 68, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.tactile-btn-danger:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.32);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(239, 68, 68, 0.12),
+    0 6px 14px rgba(239, 68, 68, 0.08);
+}
+
+.tactile-btn-danger:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 1px 2px rgba(239, 68, 68, 0.1);
+}
+
+.tactile-btn-primary:disabled,
+.tactile-btn-secondary:disabled,
+.tactile-btn-danger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
