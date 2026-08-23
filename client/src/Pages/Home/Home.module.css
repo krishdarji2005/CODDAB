@@ -1,0 +1,31 @@
+/* ─── Home page — Orion Light Theme Layout ─── */
+.page {
+  background: #ffffff;
+  min-height: 100svh;
+  color: #0f172a;
+  position: relative;
+}
+
+/*
+  Full-width centered frame with subtle vertical hairline borders
+  matching the Orion reference aesthetic.
+*/
+.column {
+  max-width: 1320px;
+  margin: 0 auto;
+  border-left: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #ffffff;
+}
+
+@media (max-width: 1360px) {
+  .column {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}

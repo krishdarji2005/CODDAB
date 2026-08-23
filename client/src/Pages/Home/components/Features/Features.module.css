@@ -1,0 +1,492 @@
+/* ─── Features section — shadcn/studio Bento Grid Wrapped in Borders ─── */
+.section {
+  padding: 6rem 2.5rem 6.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e4e4e7;
+}
+
+/* ── Section header ── */
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 4.5rem;
+}
+
+.handwrittenTag {
+  display: inline-block;
+  font-family: var(--font-handwriting), "Caveat", cursive;
+  font-size: 1.35rem;
+  color: #71717a;
+  margin-bottom: 0.5rem;
+  transform: rotate(-2deg);
+}
+
+.title {
+  font-family: var(--font-geist);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  color: #09090b;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 1.1rem;
+}
+
+.highlight {
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 3px;
+  background: #18181b;
+  border-radius: 2px;
+}
+
+.subtitle {
+  font-family: var(--font-geist);
+  font-size: 1.05rem;
+  color: #71717a;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════════════
+   BENTO GRID WRAPPED IN BORDERS (Image 3 Style)
+   ══════════════════════════════════════════════ */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid #e4e4e7;
+  border-left: 1px solid #e4e4e7;
+  background: #ffffff;
+  border-radius: 0;
+}
+
+.card {
+  background: #ffffff;
+  border-right: 1px solid #e4e4e7;
+  border-bottom: 1px solid #e4e4e7;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.15s ease;
+}
+
+.card:hover {
+  background: #fafafa;
+}
+
+/* Top Row: 2 equal cards (3 spans each out of 6) */
+.cardTopLeft {
+  grid-column: span 3;
+}
+
+.cardTopRight {
+  grid-column: span 3;
+}
+
+/* Bottom Row: 3 equal cards (2 spans each out of 6) */
+.cardBottom1 {
+  grid-column: span 2;
+}
+
+.cardBottom2 {
+  grid-column: span 2;
+}
+
+.cardBottom3 {
+  grid-column: span 2;
+}
+
+/* Card Content */
+.cardContent {
+  margin-bottom: 2rem;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 0.85rem;
+}
+
+.cardBadge {
+  font-family: var(--font-geist);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #18181b;
+  background: #f4f4f5;
+  padding: 3px 9px;
+  border-radius: 6px;
+  width: fit-content;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  font-family: var(--font-geist);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #09090b;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.cardDesc {
+  font-family: var(--font-geist);
+  font-size: 0.92rem;
+  color: #52525b;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.cardTitleSmall {
+  font-family: var(--font-geist);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #09090b;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.cardDescSmall {
+  font-family: var(--font-geist);
+  font-size: 0.88rem;
+  color: #71717a;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════════════
+   VISUAL WIDGETS INSIDE BENTO CARDS
+   ══════════════════════════════════════════════ */
+
+/* 1. Duel Orbit Diagram */
+.duelWidget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.duelOrbit {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbitCircle {
+  position: absolute;
+  inset: 0;
+  border: 1px dashed #d4d4d8;
+  border-radius: 50%;
+}
+
+.centerNode {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #18181b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.orbitNode {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #18181b;
+}
+
+.orbitNode1 {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: #18181b;
+  color: #ffffff;
+}
+
+.orbitNode2 {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+}
+
+.orbitNode3 {
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  color: #f59e0b;
+}
+
+.orbitNode4 {
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 28px;
+  height: 28px;
+  color: #10b981;
+}
+
+/* 2. Runner Card Widget */
+.runnerWidget {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.runnerCard {
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.runnerCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f4f4f5;
+}
+
+.langChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.runnerStatus {
+  font-family: var(--font-geist);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #059669;
+  background: #d1fae5;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.runnerStatsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.runnerStatItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statLabel {
+  font-family: var(--font-geist);
+  font-size: 0.7rem;
+  color: #a1a1aa;
+}
+
+.statVal {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.statValGreen {
+  font-family: var(--font-geist);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* 3. Collab Widget */
+.collabWidget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0 0.5rem;
+  position: relative;
+}
+
+.cursorPillA {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-geist);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.cursorDotA {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+
+.cursorWave {
+  flex: 1;
+  height: 1px;
+  background: dashed 1px #d4d4d8;
+  margin: 0 10px;
+}
+
+.cursorPillB {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-geist);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.cursorDotB {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* 4. Validation Widget */
+.validationWidget {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.valNodeActive {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #18181b;
+  font-weight: 500;
+  background: #fafafa;
+  border: 1px solid #f4f4f5;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.greenCheck {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.valBranch {
+  width: 1px;
+  height: 6px;
+  background: #e4e4e7;
+  margin-left: 16px;
+}
+
+/* 5. Share Widget */
+.shareWidget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.shareFlow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shareTag {
+  font-family: var(--font-geist);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #71717a;
+  background: #f4f4f5;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+}
+
+.shareTagActive {
+  font-family: var(--font-geist);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #18181b;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+
+.arrowIcon {
+  color: #a1a1aa;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 992px) {
+
+  .cardTopLeft,
+  .cardTopRight {
+    grid-column: span 6;
+  }
+
+  .cardBottom1,
+  .cardBottom2,
+  .cardBottom3 {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1.25rem;
+  }
+}

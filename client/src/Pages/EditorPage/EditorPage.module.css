@@ -1,0 +1,105 @@
+/* ─── Editor Page Layout ─── */
+.layout {
+  display: flex;
+  height: 100svh;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* ── Main content area (problem panel + editor) ── */
+.mainArea {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Editor area ── */
+.editorWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.battleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.langSelect {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-heading);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+  white-space: nowrap;
+}
+
+.langSelect:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.langSelect:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+.submitStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.statusItem {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #16a34a;
+  white-space: nowrap;
+}
+
+.timer {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 8ch; /* prevents layout shift as digits change */
+}
+
+.timerExpired {
+  color: #dc2626; /* red-600 — signals the clock has run out */
+}
+
+.editorPlaceholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.placeholderText {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}

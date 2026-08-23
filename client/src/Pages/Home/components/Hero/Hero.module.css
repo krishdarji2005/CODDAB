@@ -1,0 +1,204 @@
+/* ─── Hero — Geist Typography & Tactile Button Styling ─── */
+.section {
+  padding: 5.5rem 2rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #ffffff;
+}
+
+/* ══════════════════════════════════════════════
+   ANNOUNCEMENT BADGE
+   ══════════════════════════════════════════════ */
+.announceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 4px;
+  border: 1px solid #e4e4e7;
+  border-radius: 9999px;
+  background: #ffffff;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.announceBadge:hover {
+  border-color: #d4d4d8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.badgeNew {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-geist);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #18181b;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  letter-spacing: -0.01em;
+}
+
+.badgeText {
+  font-family: var(--font-geist);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #52525b;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════════════
+   HEADING — Geist Font
+   ══════════════════════════════════════════════ */
+.heading {
+  font-family: var(--font-geist);
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: #09090b;
+  margin-bottom: 1.4rem;
+  max-width: 860px;
+}
+
+/* ══════════════════════════════════════════════
+   SUBTITLE
+   ══════════════════════════════════════════════ */
+.subtitle {
+  font-family: var(--font-geist);
+  font-size: 1.08rem;
+  color: #52525b;
+  line-height: 1.65;
+  max-width: 620px;
+  margin-bottom: 2.4rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════════════
+   CTA ROW — Tactile Beveled Buttons (As Attached)
+   ══════════════════════════════════════════════ */
+.ctaRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.8rem;
+}
+
+/* Primary Tactile Beveled Button */
+.btnPrimary {
+  font-family: var(--font-geist);
+  font-size: 0.96rem;
+  font-weight: 600;
+  padding: 13px 30px;
+  border-radius: 14px;
+  background: #18181b;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 8px 20px -4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  background: #27272a;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 12px 24px -4px rgba(0, 0, 0, 0.45);
+}
+
+.btnPrimary:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Secondary Tactile Beveled Button */
+.btnSecondary {
+  font-family: var(--font-geist);
+  font-size: 0.96rem;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 14px;
+  border: 1px solid #e4e4e7;
+  background: #ffffff;
+  color: #18181b;
+  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  background: #fafafa;
+  border-color: #d4d4d8;
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.btnSecondary:active {
+  transform: translateY(1px);
+}
+
+/* ══════════════════════════════════════════════
+   HONEST TRUST ROW (No Fake Stats)
+   ══════════════════════════════════════════════ */
+.trustRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #71717a;
+  font-family: var(--font-geist);
+  font-size: 0.84rem;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #52525b;
+  font-weight: 500;
+}
+
+.checkIcon {
+  color: #10b981;
+}
+
+.trustDot {
+  color: #d4d4d8;
+  font-size: 0.8rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.25rem 2.5rem;
+  }
+}

@@ -1,0 +1,180 @@
+/* ─── Editor Container ─── */
+.editorContainer {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f8f9fb;
+}
+
+/* ─── Base CodeMirror wrapper ─── */
+.editorContainer :global(.CodeMirror) {
+  flex: 1;
+  height: 100% !important;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  background: #f8f9fb !important;
+  color: #1a1a2e !important; /* near-black for plain text — max contrast */
+  caret-color: #4f46e5;
+}
+
+/* ─── Gutter (line numbers column) ─── */
+.editorContainer :global(.CodeMirror-gutters) {
+  background: #f0f1f5 !important; /* slightly darker than editor bg */
+  border-right: 1px solid #dde1ea !important;
+}
+
+.editorContainer :global(.CodeMirror-linenumber) {
+  color: #9399a6 !important;
+  font-size: 0.78rem;
+  padding: 0 10px 0 8px;
+  min-width: 2.4em;
+}
+
+/* ─── Cursor ─── */
+.editorContainer :global(.CodeMirror-cursor) {
+  border-left: 2px solid #4f46e5 !important;
+}
+
+/* ─── Selection ─── */
+.editorContainer :global(.CodeMirror-selected) {
+  background: #dbeafe !important; /* blue-100 */
+}
+.editorContainer :global(.CodeMirror-focused .CodeMirror-selected) {
+  background: #bfdbfe !important; /* blue-200 — brighter when focused */
+}
+
+/* ─── Active line ─── */
+.editorContainer :global(.CodeMirror-activeline-background) {
+  background: #eef0f8 !important;
+}
+
+/* ─────────────────────────────────────────────
+   Syntax token colours — light theme palette
+   ───────────────────────────────────────────── */
+
+/* Keywords: if / for / return / class / const / let / var / #include / using … */
+.editorContainer :global(.cm-keyword) {
+  color: #6d28d9 !important; /* violet-700 */
+  font-weight: 600;
+}
+
+/* Built-ins: console, Math, std … */
+.editorContainer :global(.cm-builtin) {
+  color: #0369a1 !important; /* sky-700 */
+}
+
+/* Variable/identifier names */
+.editorContainer :global(.cm-variable) {
+  color: #1a1a2e !important;
+}
+.editorContainer :global(.cm-variable-2) {
+  color: #1d4ed8 !important; /* blue-700 — secondary identifiers / template vars */
+}
+.editorContainer :global(.cm-variable-3),
+.editorContainer :global(.cm-type) {
+  color: #0f766e !important; /* teal-700 — type names */
+}
+
+/* Function definition names */
+.editorContainer :global(.cm-def) {
+  color: #1d4ed8 !important; /* blue-700 */
+  font-weight: 500;
+}
+
+/* String literals */
+.editorContainer :global(.cm-string) {
+  color: #166534 !important; /* green-800 */
+}
+.editorContainer :global(.cm-string-2) {
+  color: #15803d !important; /* green-700 — template literals / regex strings */
+}
+
+/* Numbers */
+.editorContainer :global(.cm-number) {
+  color: #c2410c !important; /* orange-700 */
+}
+
+/* Comments */
+.editorContainer :global(.cm-comment) {
+  color: #64748b !important; /* slate-500 — readable but clearly secondary */
+  font-style: italic;
+}
+
+/* Operators: + - * / = < > ! && || */
+.editorContainer :global(.cm-operator) {
+  color: #475569 !important; /* slate-600 */
+}
+
+/* Punctuation: { } ( ) [ ] , ; */
+.editorContainer :global(.cm-punctuation) {
+  color: #475569 !important;
+}
+
+/* Properties: obj.property */
+.editorContainer :global(.cm-property) {
+  color: #0369a1 !important; /* sky-700 */
+}
+
+/* Atoms: true / false / null / nullptr */
+.editorContainer :global(.cm-atom) {
+  color: #b45309 !important; /* amber-700 */
+  font-weight: 500;
+}
+
+/* Tag names (HTML/JSX) */
+.editorContainer :global(.cm-tag) {
+  color: #be123c !important; /* rose-700 */
+  font-weight: 500;
+}
+
+/* Attribute names */
+.editorContainer :global(.cm-attribute) {
+  color: #0369a1 !important;
+}
+
+/* Preprocessor / meta (#include, #define) — C++ */
+.editorContainer :global(.cm-meta) {
+  color: #7c3aed !important; /* violet-600 */
+}
+
+/* Errors */
+.editorContainer :global(.cm-error) {
+  color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.08);
+  border-radius: 2px;
+}
+
+/* ─── Matching brackets highlight ─── */
+.editorContainer :global(.CodeMirror-matchingbracket) {
+  color: #1a1a2e !important;
+  background: #d1fae5 !important; /* green-100 */
+  border-bottom: 1px solid #059669;
+}
+
+/* ─── Scrollbars ─── */
+.editorContainer :global(::-webkit-scrollbar) {
+  width: 6px;
+  height: 6px;
+}
+
+.editorContainer :global(::-webkit-scrollbar-track) {
+  background: transparent;
+}
+
+.editorContainer :global(::-webkit-scrollbar-thumb) {
+  background: #c4c9d4;
+  border-radius: 4px;
+}
+
+.editorContainer :global(::-webkit-scrollbar-thumb:hover) {
+  background: #9399a6;
+}
+
+/* ─── Scrollbar filler ─── */
+.editorContainer :global(.CodeMirror-scrollbar-filler),
+.editorContainer :global(.CodeMirror-gutter-filler) {
+  background: #f0f1f5 !important;
+}
