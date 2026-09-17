@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import judgeRoutes from "./routes/judge.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 const app = express();
 
 // Basic middleware – can be extended later
@@ -15,7 +16,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-
 app.use('/api/judge', judgeRoutes);
+app.use('/api/ai', aiRoutes);
 
 export default app;
