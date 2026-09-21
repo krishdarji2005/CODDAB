@@ -1,0 +1,103 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.staticText {
+  margin-right: 0.35em;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.rotatingContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.textWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  vertical-align: middle;
+}
+
+.bgGradient {
+  position: absolute;
+  inset: -3px -6px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(24, 24, 27, 0.03) 0%, rgba(24, 24, 27, 0.08) 100%);
+  border: 1px solid rgba(24, 24, 27, 0.06);
+  pointer-events: none;
+}
+
+.rotatingText {
+  position: relative;
+  z-index: 1;
+  padding: 0 4px 0 2px;
+  background: linear-gradient(135deg, #09090b 0%, #27272a 50%, #52525b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.textVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.textExiting {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.textEntering {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.05em;
+  background-color: #18181b;
+  border-radius: 2px;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 0.9s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* Offscreen measurement helper */
+.measureHelper {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  visibility: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}

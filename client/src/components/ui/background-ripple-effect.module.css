@@ -1,0 +1,79 @@
+/* ─── BackgroundRippleEffect ─── */
+
+.rippleRoot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.rippleOverlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* radial fade so grid fades out at edges/bottom */
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 0%,
+    transparent 20%,
+    rgba(255, 255, 255, 0.55) 60%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+}
+
+.rippleGrid {
+  /* slight mask at top so cells fade in */
+  -webkit-mask-image: radial-gradient(ellipse 80% 55% at 50% -10%, black 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 55% at 50% -10%, black 30%, transparent 100%);
+  opacity: 0.7;
+}
+
+.divGrid {
+  position: relative;
+  z-index: 3;
+}
+
+.cell {
+  border: 0.5px solid #e2e8f0;
+  background-color: rgba(248, 250, 252, 0.6);
+  opacity: 0.45;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.cell:hover {
+  opacity: 0.85;
+  background-color: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.cellRipple {
+  animation: cellRippleAnim var(--duration, 400ms) var(--delay, 0ms) ease forwards;
+}
+
+@keyframes cellRippleAnim {
+  0% {
+    background-color: rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.5);
+    opacity: 0.9;
+    transform: scale(0.96);
+  }
+  50% {
+    background-color: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+    opacity: 0.6;
+    transform: scale(1.01);
+  }
+  100% {
+    background-color: rgba(248, 250, 252, 0.6);
+    border-color: #e2e8f0;
+    opacity: 0.45;
+    transform: scale(1);
+  }
+}
+
+.noPointer {
+  pointer-events: none;
+}

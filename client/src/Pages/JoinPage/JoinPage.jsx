@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, RefreshCw, AlertCircle, Users, Swords } from 'lucide-react';
 import styles from './JoinPage.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 /* ── Generate a UUID-style room ID ── */
 const generateRoomId = () => {
@@ -12,6 +13,7 @@ const generateRoomId = () => {
 
 const JoinPage = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth();
 
   /* ── Mode: 'join' | 'create' ── */
   const [mode, setMode] = useState('join');
@@ -21,17 +23,32 @@ const JoinPage = () => {
 
   /* ── Form state ── */
   const [roomId, setRoomId]     = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(user?.name || '');
   const [errors, setErrors]     = useState({});
   const [generated, setGenerated] = useState(false);
+
+  useEffect(() => {
+    if (user?.name && !username) {
+      setUsername(user.name);
+    }
+  }, [user]);
 
   /* ── Switch mode — reset fields ── */
   const switchMode = (m) => {
     setMode(m);
     setRoomId('');
-    setUsername('');
+    setUsername(user?.name || '');
     setErrors({});
     setGenerated(false);
+  };
+
+  const handleSelectRoomType = (type) => {
+    if (type === 'battle' && !isAuthenticated) {
+      toast.error('Please log in first to access 1v1 Battle rooms.');
+      navigate('/login', { state: { from: '/join' } });
+      return;
+    }
+    setRoomType(type);
   };
 
   /* ── Generate room ID ── */
@@ -69,6 +86,13 @@ const JoinPage = () => {
   /* ── Submit ── */
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (roomType === 'battle' && !isAuthenticated) {
+      toast.error('Please log in first to access 1v1 Battle rooms.');
+      navigate('/login', { state: { from: '/join' } });
+      return;
+    }
+
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
@@ -83,6 +107,7 @@ const JoinPage = () => {
       state: {
         username: username.trim(),
         roomType,              // 'collab' | 'battle'
+        isCreate,
       },
     });
   };
@@ -159,7 +184,7 @@ const JoinPage = () => {
                 <button
                   type="button"
                   className={`${styles.roomTypeCard} ${roomType === 'battle' ? styles.roomTypeCardActiveBattle : ''}`}
-                  onClick={() => setRoomType('battle')}
+                  onClick={() => handleSelectRoomType('battle')}
                 >
                   <span className={`${styles.roomTypeIcon} ${styles.roomTypeIconBattle}`}><Swords size={18} /></span>
                   <span className={styles.roomTypeName}>1v1 Battle Arena</span>
@@ -170,7 +195,7 @@ const JoinPage = () => {
                 <button
                   type="button"
                   className={`${styles.roomTypeCard} ${roomType === 'collab' ? styles.roomTypeCardActive : ''}`}
-                  onClick={() => setRoomType('collab')}
+                  onClick={() => handleSelectRoomType('collab')}
                 >
                   <span className={styles.roomTypeIcon}><Users size={18} /></span>
                   <span className={styles.roomTypeName}>Collab Room</span>
