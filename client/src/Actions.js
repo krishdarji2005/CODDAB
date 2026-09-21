@@ -10,7 +10,7 @@ const ACTIONS = {
   SUBMIT: 'submit',
   SUBMITTED: 'submitted',
   BATTLE_START: 'battle-start',
-
+  BATTLE_END: 'battle-end',
 };
 
 export default ACTIONS;

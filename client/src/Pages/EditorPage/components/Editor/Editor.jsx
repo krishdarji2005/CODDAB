@@ -33,7 +33,7 @@ int main() {
 `,
 };
 
-const Editor = ({ socketRef, roomId, roomType, readOnly = false, language = 'javascript', onCodeChange }) => {
+const Editor = ({ socketRef, roomId, roomType, readOnly = false, language = 'javascript', starterCode, onCodeChange }) => {
   const textareaRef = useRef(null);
   const editorRef = useRef(null);
 
@@ -52,6 +52,11 @@ const Editor = ({ socketRef, roomId, roomType, readOnly = false, language = 'jav
     });
 
     editorRef.current.setSize('100%', '100%');
+    // Notify parent of initial code content
+    if (onCodeChange) {
+      onCodeChange(editorRef.current.getValue());
+    }
+
     // instance we are getting at every event  
     editorRef.current.on('change', (instance, changes) => {
       const { origin } = changes;
@@ -89,6 +94,16 @@ const Editor = ({ socketRef, roomId, roomType, readOnly = false, language = 'jav
       }
     };
   }, [socketRef.current]);
+
+  // Load starterCode into editor when it arrives (e.g. Battle start)
+  useEffect(() => {
+    if (editorRef.current && starterCode) {
+      editorRef.current.setValue(starterCode);
+      if (onCodeChange) {
+        onCodeChange(starterCode);
+      }
+    }
+  }, [starterCode]);
 
   // Update syntax highlighting when language prop changes
   useEffect(() => {

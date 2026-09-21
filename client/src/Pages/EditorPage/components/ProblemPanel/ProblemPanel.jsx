@@ -1,42 +1,37 @@
 import React from "react";
 import styles from "./ProblemPanel.module.css";
 
-const ProblemPanel = () => {
+const ProblemPanel = ({ problem }) => {
   return (
     <div className={styles.panel}>
       <div className={styles.header}>
-        <span className={styles.badge}>Easy</span>
-        <h2 className={styles.title}>Two Sum</h2>
+        <span className={styles.badge}>{problem?.difficulty || "Easy"}</span>
+        <h2 className={styles.title}>{problem?.title || "Waiting for problem..."}</h2>
       </div>
 
-      <p className={styles.description}>
-        Given an array of integers <code>nums</code> and an integer{" "}
-        <code>target</code>, return indices of the two numbers such that they
-        add up to <code>target</code>.
-      </p>
+      {problem?.description?.map((para, index) => (
+        <p key={index} className={styles.description}>
+          {para}
+        </p>
+      ))}
 
-      <p className={styles.description}>
-        You may assume that each input would have exactly one solution, and
-        you may not use the same element twice.
-      </p>
+      {problem?.examples?.map((example, index) => (
+        <div key={index} className={styles.section}>
+          <h3>{example.title}</h3>
+          <pre className={styles.code}>{example.content}</pre>
+        </div>
+      ))}
 
-      <div className={styles.section}>
-        <h3>Example 1</h3>
-        <pre className={styles.code}>
-          {`Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: nums[0] + nums[1] == 9`}
-        </pre>
-      </div>
-
-      <div className={styles.section}>
-        <h3>Constraints</h3>
-        <ul>
-          <li>2 ≤ nums.length ≤ 10⁴</li>
-          <li>-10⁹ ≤ nums[i] ≤ 10⁹</li>
-          <li>Only one valid answer exists</li>
-        </ul>
-      </div>
+      {problem?.constraints && (
+        <div className={styles.section}>
+          <h3>Constraints</h3>
+          <ul>
+            {problem.constraints.map((constraint, index) => (
+              <li key={index}>{constraint}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Copy, LogOut, Users, Swords } from 'lucide-react';
+import { Copy, LogOut, Users, Swords, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import UserCard from '../UserCard/UserCard';
 import styles from './Sidebar.module.css';
 
-const Sidebar = ({ roomId, members, roomType }) => {
+const Sidebar = ({ roomId, members, roomType, onAiReview, isAiLoading }) => {
   const navigate = useNavigate();
 
   /* ── Copy room ID to clipboard ── */
@@ -61,6 +61,18 @@ const Sidebar = ({ roomId, members, roomType }) => {
 
       {/* ── Actions ── */}
       <div className={styles.actions}>
+        {roomType !== 'battle' && (
+          <button
+            type="button"
+            className={`tactile-btn-primary tactile-btn-sm ${styles.actionBtn} ${styles.aiBtn}`}
+            onClick={onAiReview}
+            disabled={isAiLoading}
+          >
+            <Sparkles size={14} className={isAiLoading ? styles.spinIcon : ''} />
+            {isAiLoading ? 'Reviewing...' : 'AI Code Review'}
+          </button>
+        )}
+
         <button
           type="button"
           className={`tactile-btn-primary tactile-btn-sm ${styles.actionBtn}`}
