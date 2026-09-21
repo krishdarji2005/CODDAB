@@ -1,11 +1,11 @@
 // judge.controller.js
 import { runCode } from "../services/codeExecution.service.js";
-
 import { evaluateSubmission } from "../services/testcase.service.js";
+import { problems } from "../data/problems.js";
 
 export async function executeCode(req, res) {
   try {
-    const { sourceCode, language = "cpp", stdin = "" } = req.body;
+    const { problemId, sourceCode, language = "cpp", stdin = "" } = req.body;
 
     if (!sourceCode) {
       return res.status(400).json({
@@ -14,8 +14,25 @@ export async function executeCode(req, res) {
       });
     }
 
+    let executableCode = sourceCode;
+
+    if (problemId) {
+      const problem = problems[problemId];
+      if (!problem) {
+        return res.status(400).json({
+          success: false,
+          message: `Problem not found: ${problemId}`,
+        });
+      }
+
+      const driverTemplate = problem.driverCode?.[language];
+      if (driverTemplate) {
+        executableCode = driverTemplate.replace("{{USER_CODE}}", sourceCode);
+      }
+    }
+
     const result = await runCode({
-      sourceCode,
+      sourceCode: executableCode,
       language,
       stdin,
     });

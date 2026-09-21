@@ -5,7 +5,10 @@ import { validateUserToken } from "../utils/token.js";
 import { getRandomProblem, problems } from "../data/problems.js";
 
 const roomModes = {}; // roomId -> "collab" | "battle"
-const battleRooms = {};   
+const battleRooms = {};
+
+const BATTLE_DURATION_SECONDS =
+  parseInt(process.env.BATTLE_DURATION_SECONDS, 10) || 30 * 60;
 
 // In‑memory map of socketId → username (will be moved to a service later)
 export const userSocketMap = {};
@@ -28,13 +31,50 @@ export const registerRoomHandlers = (io) => {
     const cleanRoomIfEmpty = (roomId) => {
       const room = io.sockets.adapter.rooms.get(roomId);
       if (!room || room.size === 0) {
-        delete roomModes[roomId];
+        if (battleRooms[roomId]?.timer) {
+          clearTimeout(battleRooms[roomId].timer);
+        }
+        roomModes[roomId] = "closed";
         delete battleRooms[roomId];
       }
     };
 
     // join
-    socket.on(ACTIONS.JOIN, ({ roomId, username, mode = "collab", token }) => {
+    socket.on(ACTIONS.JOIN, ({ roomId, username, mode = "collab", token, isCreate }) => {
+      const existingMode = roomModes[roomId];
+
+      // If room was closed after all participants left
+      if (existingMode === "closed") {
+        socket.emit("join-error", {
+          message: "This room has ended and is no longer available.",
+        });
+        return;
+      }
+
+      // If trying to join a room that does not exist
+      if (!existingMode && !isCreate) {
+        socket.emit("join-error", {
+          message: "Room not found. Please check the Room ID or create a new room.",
+        });
+        return;
+      }
+
+      // If trying to create a room that already exists
+      if (existingMode && isCreate) {
+        socket.emit("join-error", {
+          message: "A room with this ID already exists. Please join it instead.",
+        });
+        return;
+      }
+
+      // If room already exists, ensure requested mode matches existing mode
+      if (existingMode && existingMode !== mode) {
+        socket.emit("join-error", {
+          message: `This room is a ${existingMode} room. Please join using ${existingMode} mode.`,
+        });
+        return;
+      }
+
       const authToken = token || socket.handshake.auth?.token;
 
       // Authentication enforcement: Battle rooms require a valid JWT token
@@ -54,8 +94,8 @@ export const registerRoomHandlers = (io) => {
       const clients = getAllConnectedClients(io, roomId);
       console.log("Clients in room:", clients.map((c) => c.username));
 
-      // If room mode is not set or this is the first client entering the room, initialize mode
-      if (!roomModes[roomId] || clients.length <= 1) {
+      // If room mode is not set, initialize mode
+      if (!roomModes[roomId]) {
         roomModes[roomId] = mode;
       }
 
@@ -77,20 +117,40 @@ export const registerRoomHandlers = (io) => {
 
       if (roomModes[roomId] === "battle" && uniqueUsernames.length === 2) {
         const selectedProblem = getRandomProblem();
+
+        const timer = setTimeout(() => {
+          const battle = battleRooms[roomId];
+          if (battle && battle.status === "active") {
+            battle.status = "finished";
+
+            io.to(roomId).emit(ACTIONS.BATTLE_END, {
+              winnerSocketId: null,
+              winnerUsername: null,
+              result: null,
+              reason: "timeout",
+            });
+          }
+        }, BATTLE_DURATION_SECONDS * 1000);
+
         battleRooms[roomId] = {
           status: "active",
           winner: null,
           problemId: selectedProblem.id,
+          timer,
         };
 
         const activeProblem = problems[battleRooms[roomId].problemId];
 
         io.to(roomId).emit(ACTIONS.BATTLE_START, {
-          duration: 30 * 60, // 30 minutes in seconds
+          duration: BATTLE_DURATION_SECONDS,
           startedAt: Date.now(),
           problem: {
             id: activeProblem.id,
             title: activeProblem.title,
+            difficulty: activeProblem.difficulty,
+            description: activeProblem.description,
+            examples: activeProblem.examples,
+            constraints: activeProblem.constraints,
             starterCode: activeProblem.starterCode?.cpp,
           },
         });
@@ -110,6 +170,13 @@ export const registerRoomHandlers = (io) => {
         if (!battle || !battle.problemId) {
           socket.emit("submit-error", {
             message: "Battle problem not found. Please restart the battle.",
+          });
+          return;
+        }
+
+        if (battle.status !== "active") {
+          socket.emit("submit-error", {
+            message: "This battle has already ended.",
           });
           return;
         }
@@ -146,6 +213,9 @@ export const registerRoomHandlers = (io) => {
           // If accepted → finish battle
           if (result.success) {
             if (battle && battle.status === "active") {
+              if (battle.timer) {
+                clearTimeout(battle.timer);
+              }
               battle.status = "finished";
               battle.winner = socket.id;
 
@@ -188,9 +258,16 @@ export const registerRoomHandlers = (io) => {
       });
       // Clean up map – avoid memory leaks
       delete userSocketMap[socket.id];
-      socket.leave();
       rooms.forEach((roomId) => {
-        cleanRoomIfEmpty(roomId);
+        if (roomId === socket.id) return;
+        const room = io.sockets.adapter.rooms.get(roomId);
+        if (room && room.size === 1 && room.has(socket.id)) {
+          if (battleRooms[roomId]?.timer) {
+            clearTimeout(battleRooms[roomId].timer);
+          }
+          roomModes[roomId] = "closed";
+          delete battleRooms[roomId];
+        }
       });
     });
 
